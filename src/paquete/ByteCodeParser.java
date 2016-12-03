@@ -6,14 +6,10 @@ package paquete;
  */
 public class ByteCodeParser {
 	
-	/**
-	 * Este metodo divide el string que se pasa como parametro en dos partes, en la instruccion bytecode y el dato, ademas de parsearlos 
-	 * y cambiarlos a sus respectivos tipos (ENUM_BYTECODE e INT). 
-	 * 
-	 * @param s es el string que se lee por teclado .
-	 * @return Si la longitud es solo de 1 elemento (ADD, MUL...) devolvemos solo name. 
-     * Si la longitud es de 2 devolvemos name, mediante un metodo, y el Int parseado.
-	 */
+
+	private final static ByteCode[] bytecodes = {new Add(),new Sub(), new Div(),
+		 new Mul(),new Load(),new Push(), new Store(), new Out(), new Halt()};
+	
 	public static ByteCode parse(String s){
 	    ByteCode name = null; 
 		s = s.trim();
