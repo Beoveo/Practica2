@@ -14,13 +14,9 @@ public class CommandParser {
 	
 	
 	public static Command parse(String line) { 
-		line = line.trim(); // elimina los caracteres en blanco iniciales
-		String []words = line.split(" +"); // admite varios blancos separando las palabras.
-		if (words.length == 0) return null; 
-		else {
-			words[0] = words[0].toLowerCase(); 
-				return null;
-			}
+		line = line.trim(); 
+		String []words = line.split(" +"); 
+			words[0] = words[0].toLowerCase(); 	
 		boolean found = false;
 		int i=0;
 		Command c = null;
@@ -32,7 +28,6 @@ public class CommandParser {
 		 return c;
 		 }
 		
-		}
-	}
+}
 	
 	

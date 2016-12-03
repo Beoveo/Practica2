@@ -11,52 +11,59 @@ public class CPU {
 	  private OperandStack pila = new OperandStack(); 
 	  private boolean exeHalt = false;
 	  private int cima;
+	  private int programCounter = 0;
+	  private ByteCodeProgram bcProgram = new ByteCodeProgram();
 	  
+	  public CPU(ByteCodeProgram program){
+		  this.bcProgram = program;
+		  }
+	  public void halt(){
+		  this.exeHalt = true;
+	  }
 	  /**
 	   * El metodo halt para la maquina.
 	   * Es decir, se ejecutan todas las instrucciones introducidas hasta que llegue a HALT.
 	   * @return Devuelve si halt se puede ejecutar. Siempre esta a false, hasta que se introduce HALT,
 	   *  en este momento el metodo debe devolver true.
 	   */
-	  public boolean halt(){
+	  public boolean returnHalt(){
 		  return exeHalt;
 	  }
 	  
-	  	/**
-	  	 * Este metodo ejecuta la instruccion que se pasa como parametro.
-	  	 * Primero se comprueba si la instruccion introducida coincide con alguna de las disponibles.
-	     * Si coincide, entonces se ejecuta.
-	  	 * @param instruccion Es la instruccion a ejecutar.
-	  	 * @return Devolveremos si dicha operacion se ha podido ejecutar.
-	  	 */
-	  public boolean execute(ByteCode instruccion){  
-		if(instruccion.getIntruc() == ENUM_BYTECODE.PUSH) return pila.push(instruccion.getParam());
-			else if (instruccion.getIntruc() == ENUM_BYTECODE.LOAD){
-	    	int pos;
-	    	pos = instruccion.getParam();
-	    	return  pila.push(memoria.read(pos));
-	    }
-	    else if (instruccion.getIntruc() == ENUM_BYTECODE.STORE){
-	    	cima = pila.getCima();
-	    	pila.deleteCima();
-	    	return memoria.write(instruccion.getParam(), cima);
-	    }
-	    else if (instruccion.getIntruc() == ENUM_BYTECODE.ADD) return add();
-	    else if (instruccion.getIntruc() == ENUM_BYTECODE.SUB) return sub();
-	    else if (instruccion.getIntruc() == ENUM_BYTECODE.MUL) return mul();
-	    else if (instruccion.getIntruc() == ENUM_BYTECODE.DIV) return div();
-	    else if (instruccion.getIntruc() == ENUM_BYTECODE.OUT){
-	    	if(pila.getNumElements() > 0){
-	    		System.out.println(pila.getCima());
-	    		return true;
-	    	}else return false;
-	    }
-	    else if(instruccion.getIntruc() == ENUM_BYTECODE.HALT){ return exeHalt = true;} 
-	    else {System.out.println("Error: La instruccion introducida no es valida.");
-	     return false;
-	    }
+	  public boolean run() {
+		  this.programCounter=0;
+		  boolean error = false;
+		  while (this.programCounter < bcProgram.getNumeroInstrucciones() && ) {
+		  ByteCode bc = bcProgram.getByteCode(this.programCounter);
+		  if (!bc.execute(this)) // salir del bucle
+		  }
+		  return // ejecución correcta?
+		  }
+	  
+	  public int getStackSize(){
+		  return pila.getNumElements();
 	  }
 	  
+	  public void setProgramCounter(int jump){
+		  this.programCounter = jump;
+	  }
+	  
+	  public int pop() {
+		  return this.pila.load(); 
+		  }
+	  public boolean push(int i){
+		  return this.pila.push(i);
+	  }
+	  public boolean read(int param) {
+		  return this.memoria.read(param);
+	  }
+	  public void write(int param, int value) {
+		  this.memoria.write(param, value);
+	  }
+	  
+	  public void increaseProgramCounter() {
+		  this.programCounter++;
+	  }
 	  
 	  /**
 	   * El metodo add realiza la suma de la cima y la subcima.

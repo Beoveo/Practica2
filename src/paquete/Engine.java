@@ -25,8 +25,13 @@ public class Engine {
 		this.bcProgram = new ByteCodeProgram();
 	}
 	
+	public boolean readByteCodeProgram(){
+		
+		return true;
+	}
+	
 	/**
-	 * En el metodo start introducimos por tecladp el comando que deseamos ejecutar.
+	 * En el metodo start introducimos por teclado el comando que deseamos ejecutar.
 	 * Esta linea se parsea y se comprueba si el comando es valido, si no lo es da mensaje de error.
 	 * Si es valido comprueba que se ha podido ejecutar y que existe un programa almacenado.
 	 * Si se cumplen todas las condiciones anteriores, se mostrara el programa almacenado sin ningun mensaje de error.

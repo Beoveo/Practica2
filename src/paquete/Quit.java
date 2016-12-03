@@ -1,8 +1,6 @@
 package paquete;
 
 public class Quit extends Command {
-	
-
 	@Override
 	public boolean execute(Engine engine) {
 		return engine.endExecution();
