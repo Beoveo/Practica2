@@ -90,7 +90,7 @@ public class CPU {
 		while (this.programCounter < bcProgram.getNumBC() && !error && !exeHalt) {
 			ByteCode bc = bcProgram.getByteCode(this.programCounter);
 				if (!bc.execute(this)) error = true;
-				this.programCounter++; //deberiamos llamar a increaseCounter??
+				increaseProgramCounter();
 		}
 		return error;
 	}
