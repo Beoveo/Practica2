@@ -28,5 +28,11 @@ public class ByteCodeParser {
 		 }
 		 return c;
 		 }
+	
+	public static void showHelp() {
+		for (int i=0; i < ByteCodeParser.bytecodes.length; i++)
+			//MIRAR POR SI ACASO
+		System.out.println(ByteCodeParser.bytecodes[i].toString()); 
+	}
 		
 }
