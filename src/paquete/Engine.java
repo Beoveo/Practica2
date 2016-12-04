@@ -88,6 +88,7 @@ public class Engine {
 	}
 	*/
 	
+	//HELP
 	/**
 	 * Este metodo resetea el programa y la cpu, es decir, resetea toda la maquina virtual.
 	 * Se ejecuta cuando llamamos a RESET.
