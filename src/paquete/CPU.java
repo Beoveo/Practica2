@@ -68,6 +68,8 @@ public class CPU {
 				}else return false;
 		}else return false;
 	}
+	
+	public void goTo(int posInstr){ setProgramCounter(posInstr); }
 		
 	public int load(){ return this.pila.load();}
 		
