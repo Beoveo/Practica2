@@ -2,8 +2,9 @@ package paquete;
 
 public class IfNeq extends ConditionalJumps {
 	protected ByteCode parseAux(String string1, String string2){
-		
-		return new IfNeq();
+		//Asi le pasa directamente los datos??
+		if(string1.equalsIgnoreCase("IFNEQ")) return (new IfNeq());
+		else return null;
 	}
 	
 	protected boolean compare(int n1, int n2){
