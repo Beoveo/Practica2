@@ -25,18 +25,42 @@ public class Engine {
 		this.bcProgram = new ByteCodeProgram();
 	}
 	
-	public boolean readByteCodeProgram(){
-		
-		return true;
-	}
-	
 	/**
-	 * En el metodo start introducimos por teclado el comando que deseamos ejecutar.
+	 * En el metodo start introducimos por tecladp el comando que deseamos ejecutar.
 	 * Esta linea se parsea y se comprueba si el comando es valido, si no lo es da mensaje de error.
 	 * Si es valido comprueba que se ha podido ejecutar y que existe un programa almacenado.
 	 * Si se cumplen todas las condiciones anteriores, se mostrara el programa almacenado sin ningun mensaje de error.
 	 * El bucle se ejecutara siempre y cuando no se ejecute quit.
 	 */
+	
+	public boolean readByteCodeProgram(){
+		String line = " ";
+		line = line.toUpperCase();
+		//LEE DATOS DE TECLADO HASTA QUE INTRODUZCA END.
+		while(line != "END"){
+			System.out.println(">"); 
+			line = in.nextLine();
+			comando = CommandParser.parse(line); //lee una linea
+			if(comando == null) System.out.println("Error: Ejecucion incorrecta del comando.");
+			else {
+				//addByteCodeProgram();
+				System.out.println(comando.toString());
+				if(!comando.execute(this)) {
+					System.out.println("Error: Ejecucion incorrecta del comando.");
+					System.out.println("Programa almacenado: " + 
+							System.getProperty("line.separator") + bcProgram.toString());
+				}else if (bcProgram.getNumBC() != 0){
+					System.out.println("Programa almacenado: " + 
+							System.getProperty("line.separator") + bcProgram.toString());
+				}
+			}
+		}
+		System.out.println("Fin de la ejecucion...."); 
+		in.close();
+		return end;
+	}
+	
+	/*
 	public void start(){
 		this.end = false;
 		String line = " ";
@@ -62,26 +86,8 @@ public class Engine {
 		System.out.println("Fin de la ejecucion...."); 
 		in.close();
 	}
+	*/
 	
-	/**
-     * El metodo help muestra por pantalla una ayuda para que el usuario 
-     * sepa que instrucciones puede usar.
-     * @return Devuelve true si se ha podido mostrar por pantalla, es decir, si se ha ejecutado.
-     */
-	public boolean help(){
-		boolean ok = true;
-		if(ok){
-		System.out.println("HELP: Muestra esta ayuda.");
-		System.out.println("QUIT: Cierra la aplicacion.");
-		System.out.println("RUN: Ejecuta el programa.");
-		System.out.println("NEWINST BYTECODE: Introduce una nueva instruccion al programa.");
-		System.out.println("RESET: Vacia el programa actual.");
-		System.out.println("REPLACE N: Reemplaza la instruccion N por la solicitada al usuario.");
-		System.out.println("");
-		} else ok = false;
-		return ok;
-	}
-
 	/**
 	 * Este metodo resetea el programa y la cpu, es decir, resetea toda la maquina virtual.
 	 * Se ejecuta cuando llamamos a RESET.
@@ -97,30 +103,10 @@ public class Engine {
 	 * Este metodo cambia el valor del booleano global end a true, lo que significa que se va ha ejecutar quit.
 	 * @return Devuelve el nuevo valor de end.
 	 */
-	public boolean endExecution(){ 
-		return this.end = true;
-	}
+	public boolean endExecution(){ return this.end = true;}
 	
-	/**
-	 * El metodo addBcInstruction comprueba si el ByteCode que le pasan como parametro coincide con alguno
-	 * de los disponibles. Si es valido se inserta en el programa de bytecodes.
-	 * @param bc Es la instruccion que se añadira al programa.
-	 * @return Devuelve false si no coincide con ninguna de las instrucciones y si coincide, la introduce.
-	 */
-	public boolean addBcInstruction(ByteCode bc){
-		if(bc.getIntruc() == ENUM_BYTECODE.ADD) return bcProgram.insertarByteCode(bc);
-		else if (bc.getIntruc() == ENUM_BYTECODE.DIV) return bcProgram.insertarByteCode(bc);
-		else if (bc.getIntruc() == ENUM_BYTECODE.HALT) return bcProgram.insertarByteCode(bc);
-		else if (bc.getIntruc() == ENUM_BYTECODE.LOAD) return bcProgram.insertarByteCode(bc);
-		else if (bc.getIntruc() == ENUM_BYTECODE.MUL) return bcProgram.insertarByteCode(bc);
-		else if (bc.getIntruc() == ENUM_BYTECODE.OUT) return bcProgram.insertarByteCode(bc);
-		else if (bc.getIntruc() == ENUM_BYTECODE.PUSH) return bcProgram.insertarByteCode(bc);
-		else if (bc.getIntruc() == ENUM_BYTECODE.STORE) return bcProgram.insertarByteCode(bc);
-		else if (bc.getIntruc() == ENUM_BYTECODE.SUB) return bcProgram.insertarByteCode(bc);
-		else {System.out.println("ERROR! La instruccion introducida no es valida.");
-           return false;
-			}
-		}
+	
+
 
 	 /**
 	  * El metodo executeCommandRun ejecuta el comando RUN.
@@ -170,4 +156,3 @@ public class Engine {
 		return replaceOK;
 	}
 
-}
