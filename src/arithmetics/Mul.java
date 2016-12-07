@@ -1,4 +1,7 @@
-package paquete;
+package arithmetics;
+
+import bytecodes.ByteCode;
+import paquete.CPU;
 
 public class Mul extends Arithmetics{
 	

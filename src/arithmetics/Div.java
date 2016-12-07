@@ -1,4 +1,7 @@
-package paquete;
+package arithmetics;
+
+import bytecodes.ByteCode;
+import paquete.CPU;
 
 public class Div extends Arithmetics {
 	public boolean execute(CPU cpu){

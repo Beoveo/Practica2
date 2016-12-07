@@ -1,4 +1,4 @@
-package paquete;
+package bytecodes;
 
 /**
  * 
@@ -48,7 +48,7 @@ public class ByteCodeProgram {
 	 * false ; si no hay espacio o si no hay bytecode.
 	 */
 	
-	public boolean insertarByteCode(ByteCode instr){  //Insertamos si esta vacio y si hay espacio.
+	public boolean insertarByteCode(ByteCode instr){  
 		boolean vacio = false;
 		if(program[this.numBC] == null && this.numBC < ByteCodeProgram.MAX_INSTR){
 			vacio = true;

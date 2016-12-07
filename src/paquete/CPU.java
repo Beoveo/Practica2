@@ -1,13 +1,15 @@
 package paquete;
 
+import bytecodes.ByteCode;
+import bytecodes.ByteCodeProgram;
+
 /**
  * CLASS CPU:
  *La CPU contiene todos los metodos de las instrucciones bytecode y
  *se encarga de ejecutarlos si son validos.
  */
 public class CPU {
-	
-    private Memory memoria = new Memory();
+	private Memory memoria = new Memory();
     private OperandStack pila = new OperandStack();
     private ByteCodeProgram bcProgram = new ByteCodeProgram();
     private boolean exeHalt = false;
@@ -17,7 +19,7 @@ public class CPU {
 	public CPU(ByteCodeProgram program){ this.bcProgram = program; }
 	  
 	
-   	 public void halt(){ this.exeHalt = true; }
+   	public void halt(){ this.exeHalt = true; }
 	  
 	 
 	public boolean add(){
@@ -71,19 +73,23 @@ public class CPU {
 	
 	public void goTo(int posInstr){ setProgramCounter(posInstr); }
 		
-	public int load(){ return this.pila.load();}
+	public boolean load(int pos){ return pila.push(memoria.read(pos));}
 		
 	public boolean push(int i) { return pila.push(i);}
 		
 	public boolean read(int param) { this.memoria.read(param); return true; }
 		
-	public boolean write(int pos, int valor){ return memoria.write(pos, valor);}
+	public boolean write(int pos){return memoria.write(pos, pila.load());}
+	
+	public int getStack(){ return pila.load();}
 		
 	public int getSizeStack(){ return pila.getNumElements();}
 	
-    	public void increaseProgramCounter(){ this.programCounter++;}
+    public void increaseProgramCounter(){ this.programCounter++;}
 	
 	public void setProgramCounter(int jump){ this.programCounter = jump;}
+	
+	public int out(){ return this.pila.getCima();}
 		
 	public boolean run() {
 		this.programCounter=0;
