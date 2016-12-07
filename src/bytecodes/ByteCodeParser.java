@@ -15,7 +15,6 @@ public class ByteCodeParser {
 		 new Mul(),new Load(),new Push(), new Store(), new Out(), new Halt()};
 	
 	public static ByteCode parse(String s){
-	    ByteCode name = null; 
 		s = s.trim();
 		String[] words = s.split(" +");
 		if (words.length == 0) return null; 
