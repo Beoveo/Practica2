@@ -20,7 +20,7 @@ public class Reset extends Command {
 		 System.getProperty("line.separator");
 	}
 	public String toString(){
-		return "BYTECODE";
+		return "RESET";
 	}
 	
 	
