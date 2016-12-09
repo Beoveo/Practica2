@@ -42,18 +42,22 @@ import commands.CommandParser;
 		
 		public boolean readByteCodeProgram(){
 			boolean leido = true;
-			String line = " ";
-			line = in.nextLine();
-			while(line != "END" && leido){
-					bc = ByteCodeParser.parse(line);
-					if(bc == null) System.out.println("Error : Introduzca un bytecode correcto.");
-					else{
-					leido = bcProgram.insertarByteCode(bc);
-					if(!leido) System.out.println("Error: A alcanzado el limite de instrucciones, o la instruccion est· ocupada.");
-				}
+			String line = " ";	
+			while(!endLine && leido){
+			  line = in.nextLine();
+			  line =  line.toUpperCase();
+			  if(line.equals("END")) endLine = true;
+			  else{
+				bc = ByteCodeParser.parse(line);
+				if(bc == null) System.out.println("Error : Introduzca un bytecode correcto.");
+				else{
+				leido = bcProgram.insertarByteCode(bc);
+				if(!leido) System.out.println("Error: A alcanzado el limite de instrucciones, o la instruccion est√° ocupada.");
+				}		
+			  }
 			}
 			in.close();
-			return leido;
+		return leido;
 		}
 		
 		
@@ -98,8 +102,8 @@ import commands.CommandParser;
 		
 		 /**
 		  * El metodo executeCommandRun ejecuta el comando RUN.
-		  * Este ejecutar· en la CPU cada bytecode almacenado en bcProgram e 
-		  * ir· mostrando por pantalla el estado de la cpu, siempre y cuando no se ejecute HALT.
+		  * Este ejecutar√° en la CPU cada bytecode almacenado en bcProgram e 
+		  * ir√° mostrando por pantalla el estado de la cpu, siempre y cuando no se ejecute HALT.
 		  * Si se ejecuta HALT la maquina ejecutara todas las instrucciones hasta esta, en la cual se para.
 		  * Una vez salga del bucle, se llama a resetHalt(), un metodo que vuelve a poner halt() a false.
 		  * @return Devuelve si se ha ejecutado el comando RUN.
