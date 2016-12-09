@@ -85,23 +85,13 @@ public class CPU {
 		
 	public int getSizeStack(){ return pila.getNumElements();}
 	
-    public void increaseProgramCounter(){ this.programCounter++;}
+        public void increaseProgramCounter(){ this.programCounter++;}
 	
 	public void setProgramCounter(int jump){ this.programCounter = jump;}
 	
 	public int out(){ return this.pila.getCima();}
-		
-	public boolean run() {
-		this.programCounter=0;
-		boolean error = false;
-		//creo que faltaria una condicion de salto
-		while (this.programCounter < bcProgram.getNumBC() && !error && !exeHalt) {
-			ByteCode bc = bcProgram.getByteCode(this.programCounter);
-				if (!bc.execute(this)) error = true;
-				increaseProgramCounter();
-		}
-		return error;
-	}
+	
+	public boolean getHalt(){return exeHalt;}
 		
 		/**
 		 * El metodo reset de la CPU resetea la pila y la memoria.
