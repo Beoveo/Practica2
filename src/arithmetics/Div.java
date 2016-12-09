@@ -12,4 +12,6 @@ public class Div extends Arithmetics {
 			return null;
 		} else return new Div();
 	}	
+	
+	public String toString(){ return "DIV";}
 }
