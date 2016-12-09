@@ -18,6 +18,7 @@ import commands.CommandParser;
 		private ByteCodeProgram bcProgram;
 		private ByteCode bc;
 		private boolean end;
+		private boolean endLine;
 		private static Scanner in = new Scanner(System.in);
 		private CPU cpu = new CPU();
 		private Command comando = null;
@@ -29,36 +30,29 @@ import commands.CommandParser;
 		 */
 		public Engine(){
 			this.end = false;
+			this.endLine = false;
 			this.bcProgram = new ByteCodeProgram();
 		}
 		
-		/**
-		 * En el metodo start introducimos por tecladp el comando que deseamos ejecutar.
-		 * Esta linea se parsea y se comprueba si el comando es valido, si no lo es da mensaje de error.
-		 * Si es valido comprueba que se ha podido ejecutar y que existe un programa almacenado.
-		 * Si se cumplen todas las condiciones anteriores, se mostrara el programa almacenado sin ningun mensaje de error.
-		 * El bucle se ejecutara siempre y cuando no se ejecute quit.
-		 */
 		
 		public boolean readByteCodeProgram(){
-			boolean leido = true;
+			resetEND();
+			boolean leido = false;
 			String line = " ";	
-			while(!endLine && leido){
+			while(!endLine && !leido){
 			  line = in.nextLine();
 			  line =  line.toUpperCase();
-			  if(line.equals("END")) endLine = true;
+			  if(line.equals("END")) endAddByteCodes();
 			  else{
 				bc = ByteCodeParser.parse(line);
 				if(bc == null) System.out.println("Error : Introduzca un bytecode correcto.");
 				else{
-				leido = bcProgram.insertarByteCode(bc);
-				if(!leido) System.out.println("Error: A alcanzado el limite de instrucciones, o la instruccion está ocupada.");
+				if(!bcProgram.insertarByteCode(bc)) System.out.println("Error: A alcanzado el limite de instrucciones, o la instruccion está ocupada.");
 				}		
 			  }
 			}
-			in.close();
-		return leido;
-		}
+		return endLine;
+}
 		
 		
 		public void start(){
@@ -69,7 +63,7 @@ import commands.CommandParser;
 				line = in.nextLine();
 				line =  line.toUpperCase();
 				comando = CommandParser.parse(line); 
-				if(comando == null) System.out.println("Error, vuelva introducir el comando.");
+				if(comando == null) System.out.println("Error: Vuelva introducir el comando.");
 				else {
 					System.out.println("Comienza la ejecucion de " + comando.toString());
 					comando.execute(this);
