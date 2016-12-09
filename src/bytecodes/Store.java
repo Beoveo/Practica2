@@ -15,8 +15,8 @@ public class Store extends ByteCodeOneParameter {
 	@Override
 	protected ByteCode parseAux(String string1, String string2) {
 		int param = Integer.parseInt(string2);
-		if(string1 != "STORE" || param < 0) return null;
-		else return new Load(param);
+		if(!string1.equalsIgnoreCase("STORE") || param < 0) return null;
+		else return new Store(param);
 	}
 
 

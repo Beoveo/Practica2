@@ -16,7 +16,7 @@ public class Push extends ByteCodeOneParameter {
 	@Override
 	protected ByteCode parseAux(String string1, String string2) {
 		int param = Integer.parseInt(string2);
-		if(string1 != "PUSH" || param < 0) return null;
+		if(!string1.equalsIgnoreCase("PUSH") || param < 0) return null;
 		else return new Push(param);
 	}
 

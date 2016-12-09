@@ -11,7 +11,7 @@ public class Ifle extends ConditionalJumps {
 	
 	protected ByteCode parseAux(String string1, String string2){
 		int pos = Integer.parseInt(string2);
-		if(string1 != "Ifle" || pos < 0) return null;
+		if(!string1.equalsIgnoreCase("IFLE") || pos < 0) return null;
 		else return new Ifle(pos);
 	}
 	

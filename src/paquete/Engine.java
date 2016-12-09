@@ -18,7 +18,6 @@ import commands.CommandParser;
 		private ByteCodeProgram bcProgram;
 		private ByteCode bc;
 		private boolean end;
-		private boolean endLine;
 		private static Scanner in = new Scanner(System.in);
 		private CPU cpu = new CPU();
 		private Command comando = null;
@@ -30,28 +29,26 @@ import commands.CommandParser;
 		 */
 		public Engine(){
 			this.end = false;
-			this.endLine = false;
 			this.bcProgram = new ByteCodeProgram();
 		}
 		
 		
 		public boolean readByteCodeProgram(){
-			resetEND();
-			boolean leido = false;
+			boolean lleno = false;
 			String line = " ";	
-			while(!endLine && !leido){
-			  line = in.nextLine();
-			  line =  line.toUpperCase();
-			  if(line.equals("END")) endAddByteCodes();
-			  else{
-				bc = ByteCodeParser.parse(line);
-				if(bc == null) System.out.println("Error : Introduzca un bytecode correcto.");
-				else{
-				if(!bcProgram.insertarByteCode(bc)) System.out.println("Error: A alcanzado el limite de instrucciones, o la instruccion está ocupada.");
-				}		
-			  }
+			while(!line.equalsIgnoreCase("END") && !lleno){
+				line = in.nextLine();
+				line =  line.toUpperCase();
+				if(!line.equalsIgnoreCase("END")){
+					bc = ByteCodeParser.parse(line);
+					if(bc == null) System.out.println("Error : Introduzca un bytecode correcto.");
+					else{
+						lleno = bcProgram.insertarByteCode(bc);
+						if(lleno) System.out.println("Error: A alcanzado el limite de instrucciones, o la instruccion esta ocupada.");
+				}
 			}
-		return endLine;
+		}
+		return lleno;
 }
 		
 		
@@ -97,8 +94,8 @@ import commands.CommandParser;
 		
 		 /**
 		  * El metodo executeCommandRun ejecuta el comando RUN.
-		  * Este ejecutará en la CPU cada bytecode almacenado en bcProgram e 
-		  * irá mostrando por pantalla el estado de la cpu, siempre y cuando no se ejecute HALT.
+		  * Este ejecutarÃ¡ en la CPU cada bytecode almacenado en bcProgram e 
+		  * irÃ¡ mostrando por pantalla el estado de la cpu, siempre y cuando no se ejecute HALT.
 		  * Si se ejecuta HALT la maquina ejecutara todas las instrucciones hasta esta, en la cual se para.
 		  * Una vez salga del bucle, se llama a resetHalt(), un metodo que vuelve a poner halt() a false.
 		  * @return Devuelve si se ha ejecutado el comando RUN.
@@ -106,16 +103,18 @@ import commands.CommandParser;
 		public boolean executeCommandRun(){
 			boolean exeOK = true;
 			int i = 0;
-			while (i< this.bcProgram.getNumBC() && exeOK && !cpu.halt()) {
+			while (i< this.bcProgram.getNumBC() && exeOK) {
 				ByteCode instr = this.bcProgram.getByteCode(i); 
-			if (cpu.execute(instr)){
-				System.out.println("El estado de la maquina tras ejecutar el bytecode  "+ bcProgram.getByteCode(i) +"  es:");
-				System.out.println(cpu.toString());
+			if (instr.execute(this.cpu)){
 				i++; 
 				}else{
 					exeOK = false; // salir del bucle
 				}
-			}cpu.reset();
+			}
+			System.out.println("El estado de la maquina tras ejecutar el programa es:" +
+								System.getProperty("line.separator"));
+			System.out.println(cpu.toString());
+			cpu.reset();
 			cpu.resetHalt();
 			return exeOK; 
 	    }

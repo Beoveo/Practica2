@@ -11,7 +11,7 @@ public class Ifeq extends ConditionalJumps {
 	
 	protected ByteCode parseAux(String string1, String string2){
 		int pos = Integer.parseInt(string2);
-		if(string1 != "IFEQ" || pos < 0) return null;
+		if(!string1.equalsIgnoreCase("IFEQ") || pos < 0) return null;
 		else return new Ifeq(pos);
 	}
 	

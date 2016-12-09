@@ -4,6 +4,10 @@ import arithmetics.Add;
 import arithmetics.Div;
 import arithmetics.Mul;
 import arithmetics.Sub;
+import conditionals.IfLeq;
+import conditionals.IfNeq;
+import conditionals.Ifeq;
+import conditionals.Ifle;
 
 /**
  *CLASS BYTECODE-PARSER: 
@@ -12,7 +16,8 @@ import arithmetics.Sub;
 public class ByteCodeParser {
 	
 	private final static ByteCode[] bytecodes = {new Add(),new Sub(), new Div(),
-		 new Mul(),new Load(),new Push(), new Store(), new Out(), new Halt()};
+		 new Mul(),new Load(),new Push(), new Ifeq(), new Ifle(), new IfLeq(), new IfNeq(), 
+		 new Store(), new Out(), new Halt()};
 	
 	public static ByteCode parse(String s){
 		s = s.trim();

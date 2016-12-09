@@ -49,13 +49,13 @@ public class ByteCodeProgram {
 	 */
 	
 	public boolean insertarByteCode(ByteCode instr){  
-		boolean vacio = false;
+		boolean lleno = true;
 		if(program[this.numBC] == null && this.numBC < ByteCodeProgram.MAX_INSTR){
-			vacio = true;
+			lleno = false;
 			program[this.numBC] = instr;
 			this.numBC++;
 		} 
-		return vacio;
+		return lleno;
 	}
 	
 	/** 
