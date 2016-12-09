@@ -11,7 +11,7 @@ public class Quit extends Command {
 	@Override
 	public Command parse(String[] s) {
 		if (s.length!=1 || !s[0].equalsIgnoreCase("QUIT")) return null;
-	else return new Run();
+	else return new Quit();
 	}
 	@Override
 	public String textHelp() {
