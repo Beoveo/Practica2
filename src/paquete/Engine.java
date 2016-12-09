@@ -105,11 +105,15 @@ import commands.CommandParser;
 			int i = 0;
 			while (i< this.bcProgram.getNumBC() && exeOK) {
 				ByteCode instr = this.bcProgram.getByteCode(i); 
-			if (instr.execute(this.cpu)){
-				i++; 
+			if(cpu.getHalt()){exeOK = false;} 
+			else{
+				if (instr.execute(this.cpu)){
+					cpu.increaseProgramCounter();
+					i++; 
 				}else{
-					exeOK = false; // salir del bucle
+					exeOK = false; 
 				}
+			  }
 			}
 			System.out.println("El estado de la maquina tras ejecutar el programa es:" +
 								System.getProperty("line.separator"));
@@ -117,7 +121,7 @@ import commands.CommandParser;
 			cpu.reset();
 			cpu.resetHalt();
 			return exeOK; 
-	    }
+}
 
 		
 		public boolean help(){
@@ -137,7 +141,7 @@ import commands.CommandParser;
 		public boolean replace(int replace){
 			String line;
 			boolean replaceOK = false;
-			if (replace >= 0 && bcProgram.getNumBC() > 0 && bcProgram.getByteCode(replace) != null){
+			if (bcProgram.getNumBC() > 0 && bcProgram.getByteCode(replace) != null){
 				replaceOK = true;
 			System.out.println("Nueva instruccion: ");
 			line = in.nextLine();
