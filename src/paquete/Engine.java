@@ -122,7 +122,7 @@ import commands.CommandParser;
 		
 		public boolean help(){
 			boolean ok = true;
-			System.out.println(comando.textHelp());
+			CommandParser.showHelp();
 			return ok;
 		}
 
