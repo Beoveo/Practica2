@@ -15,4 +15,6 @@ public class Mul extends Arithmetics{
 		} else return new Mul();
 	}
 	
+	public String toString(){ return "MUL";}
+	
 }
