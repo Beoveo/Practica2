@@ -71,6 +71,7 @@ import commands.CommandParser;
 				comando = CommandParser.parse(line); 
 				if(comando == null) System.out.println("Error, vuelva introducir el comando.");
 				else {
+					System.out.println("Comienza la ejecucion de " + comando.toString());
 					comando.execute(this);
 					if (bcProgram.getNumBC() != 0){
 						System.out.println("Programa almacenado: " + 
