@@ -21,6 +21,7 @@ public class AddByteCodeProgram extends Command {
 	System.getProperty("line.separator");
 	}
 	public String toString(){
-		return "BYTECODE";
+		return "BYTECODE" + System.getProperty("line.separator")
+				+ "Introduzca el bytecode. Una instruccion por linea:";
 	}
 }
