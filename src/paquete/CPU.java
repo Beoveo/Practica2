@@ -13,11 +13,36 @@ public class CPU {
     private OperandStack pila = new OperandStack();
     private ByteCodeProgram bcProgram = new ByteCodeProgram();
     private boolean exeHalt = false;
-    private int programCounter = 0; //indica la sig instruccion a ejecutar
-  //Si no poniamos esta constructora daba error en engine
-	public CPU(){	  }
+    private int programCounter = 0; 
 	public CPU(ByteCodeProgram program){ this.bcProgram = program; }
 	  
+	
+	
+	public boolean run() {
+		this.programCounter = 0;
+		boolean error = false;
+		int numBC = bcProgram.getNumBC();
+		while (this.programCounter < numBC && !error) {
+		ByteCode bc = bcProgram.getByteCode(this.programCounter);
+		if (!bc.execute(this) || this.exeHalt){
+			error = true;
+		}
+		}return error;
+	}
+	
+	
+	public void replaceBC(int pos, ByteCode bc){
+		this.bcProgram.replace(pos, bc);
+	}
+	
+	public int getNumBC(){
+		return this.bcProgram.getNumBC();
+	}
+	
+	public ByteCode getByteCode(int pos){
+		return this.bcProgram.getByteCode(pos);
+	}
+	
 	
    	public void halt(){ this.exeHalt = true; }
 	  
@@ -41,7 +66,7 @@ public class CPU {
 			pila.deleteCima();
 			valor2 = pila.getCima();
 			pila.deleteCima();
-			return pila.push(valor1 - valor2);
+			return pila.push(valor2 - valor1);
 		} else return false;
 	}
 
@@ -85,13 +110,11 @@ public class CPU {
 		
 	public int getSizeStack(){ return pila.getNumElements();}
 	
-        public void increaseProgramCounter(){ this.programCounter++;}
+    public void increaseProgramCounter(){ this.programCounter++;}
 	
 	public void setProgramCounter(int jump){ this.programCounter = jump;}
 	
 	public int out(){ return this.pila.getCima();}
-	
-	public boolean getHalt(){return exeHalt;}
 		
 		/**
 		 * El metodo reset de la CPU resetea la pila y la memoria.

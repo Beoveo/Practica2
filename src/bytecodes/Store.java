@@ -9,7 +9,8 @@ public class Store extends ByteCodeOneParameter {
 	}
 	
 	public boolean execute(CPU cpu) {
-		return cpu.write(super.param);
+		if(cpu.write(super.param)){ cpu.increaseProgramCounter(); return true;}
+		else return false;
 	}
 	
 	@Override

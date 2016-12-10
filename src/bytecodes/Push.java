@@ -10,7 +10,8 @@ public class Push extends ByteCodeOneParameter {
 	}
 	
 	public boolean execute(CPU cpu) {
-		return cpu.push(super.param);
+		if(cpu.push(super.param)){ cpu.increaseProgramCounter(); return true;}
+		else return false;
 	}
 	
 	@Override

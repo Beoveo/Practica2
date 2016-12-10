@@ -15,8 +15,8 @@ abstract public class ConditionalJumps extends ByteCodeOneParameter{
 	if (cpu.getSizeStack()>=2){
 		int n1 = cpu.getStack();
 		int n2 = cpu.getStack();
-		if (compare(n2,n1)) cpu.setProgramCounter(this.param);
-		else cpu.increaseProgramCounter();
+		if (compare(n2,n1))cpu.increaseProgramCounter();
+		else cpu.setProgramCounter(super.param);
 		return true;
 	}else return false;
 	}

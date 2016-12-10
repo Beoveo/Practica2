@@ -4,7 +4,8 @@ import paquete.CPU;
 
 public class Out extends ByteCode {
 	public boolean execute(CPU cpu) {
-		if(cpu.getSizeStack() > 0) {System.out.println(cpu.out()); return true;}
+		if(cpu.getSizeStack() > 0) {System.out.println(cpu.out());
+		 cpu.increaseProgramCounter(); return true;}
 		else return false;
 	}
 	public ByteCode parse(String[] words) {

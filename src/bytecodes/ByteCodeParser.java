@@ -8,6 +8,7 @@ import conditionals.IfLeq;
 import conditionals.IfNeq;
 import conditionals.Ifeq;
 import conditionals.Ifle;
+import conditionals.GoTo;
 
 /**
  *CLASS BYTECODE-PARSER: 
@@ -17,7 +18,7 @@ public class ByteCodeParser {
 	
 	private final static ByteCode[] bytecodes = {new Add(),new Sub(), new Div(),
 		 new Mul(),new Load(),new Push(), new Ifeq(), new Ifle(), new IfLeq(), new IfNeq(), 
-		 new Store(), new Out(), new Halt()};
+		 new GoTo(), new Store(), new Out(), new Halt()};
 	
 	public static ByteCode parse(String s){
 		s = s.trim();

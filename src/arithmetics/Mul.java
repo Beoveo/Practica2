@@ -6,7 +6,8 @@ import paquete.CPU;
 public class Mul extends Arithmetics{
 	
 	public boolean execute(CPU cpu){
-		return cpu.mul();
+		if(cpu.mul()){ cpu.increaseProgramCounter(); return true; }
+		else return false;
 	}
 	@Override
 	public ByteCode parse(String[] words){

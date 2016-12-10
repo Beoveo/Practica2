@@ -51,12 +51,9 @@ public class Memory {
 	
 	public boolean write(int pos, int valor){
 		redimensionar(pos);
-		if(this.memory[pos] == null){ 
-			this.memory[pos] = valor;
+		this.memory[pos] = valor;
 			this.vacio = false;
 			return true;
-		} else return false;	
-	
 	}
 	
 	/**

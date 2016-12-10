@@ -5,7 +5,8 @@ import paquete.CPU;
 
 public class Div extends Arithmetics {
 	public boolean execute(CPU cpu){
-		return cpu.div();
+		if(cpu.div()){ cpu.increaseProgramCounter(); return true; }
+		else return false;
 	}
 	public ByteCode parse(String[] words){
 		if(words.length !=1 || !words[0].equalsIgnoreCase("DIV")){

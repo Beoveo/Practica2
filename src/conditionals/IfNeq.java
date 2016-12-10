@@ -12,7 +12,7 @@ public class IfNeq extends ConditionalJumps{
 	protected ByteCode parseAux(String string1, String string2){
 		int pos = Integer.parseInt(string2);
 		if(!string1.equalsIgnoreCase("IFNEQ") || pos < 0) return null;
-		else return new Ifeq(pos);
+		else return new IfNeq(pos);
 	}
 	
 	protected boolean compare(int n1, int n2){

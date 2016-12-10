@@ -19,7 +19,7 @@ import commands.CommandParser;
 		private ByteCode bc;
 		private boolean end;
 		private static Scanner in = new Scanner(System.in);
-		private CPU cpu = new CPU();
+		private CPU cpu;
 		private Command comando = null;
 		
 		/**
@@ -48,6 +48,7 @@ import commands.CommandParser;
 				}
 			}
 		}
+		cpu = new CPU(bcProgram);
 		return lleno;
 }
 		
@@ -101,32 +102,20 @@ import commands.CommandParser;
 		  * @return Devuelve si se ha ejecutado el comando RUN.
 		  */
 		public boolean executeCommandRun(){
-			boolean exeOK = true;
-			int i = 0;
-			while (i< this.bcProgram.getNumBC() && exeOK) {
-				ByteCode instr = this.bcProgram.getByteCode(i); 
-			if(cpu.getHalt()){exeOK = false;} 
-			else{
-				if (instr.execute(this.cpu)){
-					cpu.increaseProgramCounter();
-					i++; 
-				}else{
-					exeOK = false; 
-				}
-			  }
-			}
+			boolean exeOk;
+			exeOk = cpu.run();
 			System.out.println("El estado de la maquina tras ejecutar el programa es:" +
 								System.getProperty("line.separator"));
 			System.out.println(cpu.toString());
 			cpu.reset();
 			cpu.resetHalt();
-			return exeOK; 
+			return exeOk; 
 }
 
 		
 		public boolean help(){
 			boolean ok = true;
-			CommandParser.showHelp();
+			CommandParser.showHelp();;
 			return ok;
 		}
 
@@ -141,12 +130,12 @@ import commands.CommandParser;
 		public boolean replace(int replace){
 			String line;
 			boolean replaceOK = false;
-			if (bcProgram.getNumBC() > 0 && bcProgram.getByteCode(replace) != null){
+			if (cpu.getNumBC() > 0 && cpu.getByteCode(replace) != null){
 				replaceOK = true;
 			System.out.println("Nueva instruccion: ");
 			line = in.nextLine();
 			bc = ByteCodeParser.parse(line);
-			bcProgram.replace(replace, bc);
+			cpu.replaceBC(replace, bc);
 			}
 			return replaceOK;
 		}

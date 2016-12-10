@@ -10,7 +10,8 @@ public class Load extends ByteCodeOneParameter{
 	}
 	
 	public boolean execute(CPU cpu) {
-		return cpu.load(super.param);
+		if(cpu.load(super.param)){ cpu.increaseProgramCounter(); return true;}
+		else return false;
 	}
 	
 	@Override

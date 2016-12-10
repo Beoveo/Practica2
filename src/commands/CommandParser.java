@@ -29,6 +29,11 @@ public class CommandParser {
 		 }
 		 return c;
 		 }
+	
+	 public static void showHelp() {
+		 for (int i=0; i < CommandParser.commands.length; i++)
+		 System.out.println(CommandParser.commands[i].textHelp());
+		 }
 		
 }
 	
