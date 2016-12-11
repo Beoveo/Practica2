@@ -32,7 +32,11 @@ import commands.CommandParser;
 			this.bcProgram = new ByteCodeProgram();
 		}
 		
-		
+		/**
+		 * Metodo que lee todo el programa de instrucciones bytecode siempre que sean correctas, que el programa no este lleno
+		 *  y hasta que se introduzca por teclado la palabra END. 
+		 * @return Devuelve un nuevo objeto de la CPU con ese programa de bytecodes.
+		 */
 		public boolean readByteCodeProgram(){
 			boolean lleno = false;
 			String line = " ";	
@@ -50,9 +54,12 @@ import commands.CommandParser;
 		}
 		cpu = new CPU(bcProgram);
 		return lleno;
-}
+		}
 		
-		
+		/**
+		 * Metodo que lee el comando a ejecutar y si se corresponde con los disponibles se ejecuta y se muestra el programa almacenado.
+		 * Si el comando es null, vuelve a pedir un comando.
+		 */
 		public void start(){
 			this.end = false;
 			String line = " ";
@@ -74,7 +81,6 @@ import commands.CommandParser;
 			in.close();
 		}
 		
-		//HELP
 		/**
 		 * Este metodo resetea el programa y la cpu, es decir, resetea toda la maquina virtual.
 		 * Se ejecuta cuando llamamos a RESET.
@@ -112,7 +118,10 @@ import commands.CommandParser;
 			return exeOk; 
 }
 
-		
+		/**
+		 * Metodo que ejecuta el comando HELP. Muestra la ayuda por pantalla.
+		 * @return Devuelve ok si se ha podido mostrar.
+		 */
 		public boolean help(){
 			boolean ok = true;
 			CommandParser.showHelp();;
