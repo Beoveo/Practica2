@@ -12,7 +12,7 @@ import conditionals.GoTo;
 
 /**
  *CLASS BYTECODE-PARSER: 
- *Parseamos los bytecodes de tipo String a ENUM_BYTECODE.
+ *Clase que comprueba de que instruccion bytecode se trata y devuelve un nuevo objeto de esa clase.
  */
 public class ByteCodeParser {
 	
@@ -20,6 +20,14 @@ public class ByteCodeParser {
 		 new Mul(),new Load(),new Push(), new Ifeq(), new Ifle(), new IfLeq(), new IfNeq(), 
 		 new GoTo(), new Store(), new Out(), new Halt()};
 	
+	/**
+	 * Metodo que parsea el bytecode introducido por teclado.
+	 * Comprueba qué bytecode es de todos los disponibles y si es un bytecode
+	 * devuelve un nuevo objeto de este, sino devuelve null.
+	 * @param s: Linea que contiene la instruccion bytecode.
+	 * @return Devuelve un nuevo objeto de la instruccion bytecode u
+	 * en caso contrario null.
+	 */
 	public static ByteCode parse(String s){
 		s = s.trim();
 		String[] words = s.split(" +");
